@@ -1,0 +1,2037 @@
+{
+  "name": "SmartWarehouse",
+  "width": 100,
+  "height": 100,
+  "nodes": [
+    {
+      "id": "Shelf_0_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_0_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_0_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_0_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_0_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_0_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_0_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_0_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_0_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_0_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 5,
+      "capacity": 15,
+      "metadata": {
+        "row": 0,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_1_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_1_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_1_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_1_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_1_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_1_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_1_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_1_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_1_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_1_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 15,
+      "capacity": 15,
+      "metadata": {
+        "row": 1,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_2_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_2_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_2_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_2_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_2_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_2_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_2_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_2_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_2_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_2_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 25,
+      "capacity": 15,
+      "metadata": {
+        "row": 2,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_3_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_3_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_3_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_3_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_3_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_3_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_3_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_3_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_3_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_3_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 35,
+      "capacity": 15,
+      "metadata": {
+        "row": 3,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_4_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_4_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_4_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_4_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_4_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_4_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_4_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_4_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_4_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_4_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 45,
+      "capacity": 15,
+      "metadata": {
+        "row": 4,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_5_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_5_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_5_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_5_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_5_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_5_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_5_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_5_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_5_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_5_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 55,
+      "capacity": 15,
+      "metadata": {
+        "row": 5,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_6_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_6_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_6_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_6_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_6_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_6_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_6_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_6_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_6_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_6_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 65,
+      "capacity": 15,
+      "metadata": {
+        "row": 6,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_7_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_7_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_7_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_7_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_7_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_7_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_7_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_7_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_7_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_7_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 75,
+      "capacity": 15,
+      "metadata": {
+        "row": 7,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_8_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_8_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_8_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_8_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_8_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_8_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_8_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_8_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_8_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_8_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 85,
+      "capacity": 15,
+      "metadata": {
+        "row": 8,
+        "col": 9
+      }
+    },
+    {
+      "id": "Shelf_9_0",
+      "type": "shelf",
+      "x": 5,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 0
+      }
+    },
+    {
+      "id": "Shelf_9_1",
+      "type": "shelf",
+      "x": 15,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 1
+      }
+    },
+    {
+      "id": "Shelf_9_2",
+      "type": "shelf",
+      "x": 25,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 2
+      }
+    },
+    {
+      "id": "Shelf_9_3",
+      "type": "shelf",
+      "x": 35,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 3
+      }
+    },
+    {
+      "id": "Shelf_9_4",
+      "type": "shelf",
+      "x": 45,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 4
+      }
+    },
+    {
+      "id": "Shelf_9_5",
+      "type": "shelf",
+      "x": 55,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 5
+      }
+    },
+    {
+      "id": "Shelf_9_6",
+      "type": "shelf",
+      "x": 65,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 6
+      }
+    },
+    {
+      "id": "Shelf_9_7",
+      "type": "shelf",
+      "x": 75,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 7
+      }
+    },
+    {
+      "id": "Shelf_9_8",
+      "type": "shelf",
+      "x": 85,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 8
+      }
+    },
+    {
+      "id": "Shelf_9_9",
+      "type": "shelf",
+      "x": 95,
+      "y": 95,
+      "capacity": 15,
+      "metadata": {
+        "row": 9,
+        "col": 9
+      }
+    },
+    {
+      "id": "Dock_0",
+      "type": "dock",
+      "x": 0,
+      "y": 55,
+      "capacity": 1000,
+      "metadata": {
+        "type": "loading"
+      }
+    },
+    {
+      "id": "Picking_0",
+      "type": "picking_station",
+      "x": 100,
+      "y": 55,
+      "capacity": 500,
+      "metadata": {}
+    }
+  ],
+  "edges": [
+    {
+      "source": "Shelf_0_0",
+      "target": "Shelf_0_1",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_0_1",
+      "target": "Shelf_0_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_0_2",
+      "target": "Shelf_0_3",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_0_3",
+      "target": "Shelf_0_4",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_4",
+      "target": "Shelf_0_5",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_5",
+      "target": "Shelf_0_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_6",
+      "target": "Shelf_0_7",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_0_7",
+      "target": "Shelf_0_8",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_0_8",
+      "target": "Shelf_0_9",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_0",
+      "target": "Shelf_1_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_1_1",
+      "target": "Shelf_1_2",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_1_2",
+      "target": "Shelf_1_3",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_3",
+      "target": "Shelf_1_4",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_4",
+      "target": "Shelf_1_5",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_5",
+      "target": "Shelf_1_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_6",
+      "target": "Shelf_1_7",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_7",
+      "target": "Shelf_1_8",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_1_8",
+      "target": "Shelf_1_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_0",
+      "target": "Shelf_2_1",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_2_1",
+      "target": "Shelf_2_2",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_2",
+      "target": "Shelf_2_3",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_3",
+      "target": "Shelf_2_4",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_4",
+      "target": "Shelf_2_5",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_2_5",
+      "target": "Shelf_2_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_6",
+      "target": "Shelf_2_7",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_2_7",
+      "target": "Shelf_2_8",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_8",
+      "target": "Shelf_2_9",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_0",
+      "target": "Shelf_3_1",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_3_1",
+      "target": "Shelf_3_2",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_3_2",
+      "target": "Shelf_3_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_3_3",
+      "target": "Shelf_3_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_4",
+      "target": "Shelf_3_5",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_5",
+      "target": "Shelf_3_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_3_6",
+      "target": "Shelf_3_7",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_3_7",
+      "target": "Shelf_3_8",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_8",
+      "target": "Shelf_3_9",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_0",
+      "target": "Shelf_4_1",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_1",
+      "target": "Shelf_4_2",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_4_2",
+      "target": "Shelf_4_3",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_3",
+      "target": "Shelf_4_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_4_4",
+      "target": "Shelf_4_5",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_4_5",
+      "target": "Shelf_4_6",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_4_6",
+      "target": "Shelf_4_7",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_4_7",
+      "target": "Shelf_4_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_8",
+      "target": "Shelf_4_9",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_5_0",
+      "target": "Shelf_5_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_5_1",
+      "target": "Shelf_5_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_5_2",
+      "target": "Shelf_5_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_5_3",
+      "target": "Shelf_5_4",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_5_4",
+      "target": "Shelf_5_5",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_5_5",
+      "target": "Shelf_5_6",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_5_6",
+      "target": "Shelf_5_7",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_5_7",
+      "target": "Shelf_5_8",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_5_8",
+      "target": "Shelf_5_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_6_0",
+      "target": "Shelf_6_1",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_6_1",
+      "target": "Shelf_6_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_2",
+      "target": "Shelf_6_3",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_3",
+      "target": "Shelf_6_4",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_6_4",
+      "target": "Shelf_6_5",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_6_5",
+      "target": "Shelf_6_6",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_6",
+      "target": "Shelf_6_7",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_6_7",
+      "target": "Shelf_6_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_8",
+      "target": "Shelf_6_9",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_7_0",
+      "target": "Shelf_7_1",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_1",
+      "target": "Shelf_7_2",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_7_2",
+      "target": "Shelf_7_3",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_3",
+      "target": "Shelf_7_4",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_7_4",
+      "target": "Shelf_7_5",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_5",
+      "target": "Shelf_7_6",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_6",
+      "target": "Shelf_7_7",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_7_7",
+      "target": "Shelf_7_8",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_8",
+      "target": "Shelf_7_9",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_8_0",
+      "target": "Shelf_8_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_1",
+      "target": "Shelf_8_2",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_8_2",
+      "target": "Shelf_8_3",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_3",
+      "target": "Shelf_8_4",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_8_4",
+      "target": "Shelf_8_5",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_8_5",
+      "target": "Shelf_8_6",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_8_6",
+      "target": "Shelf_8_7",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_8_7",
+      "target": "Shelf_8_8",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_8_8",
+      "target": "Shelf_8_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_9_0",
+      "target": "Shelf_9_1",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_9_1",
+      "target": "Shelf_9_2",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_9_2",
+      "target": "Shelf_9_3",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_9_3",
+      "target": "Shelf_9_4",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_9_4",
+      "target": "Shelf_9_5",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_9_5",
+      "target": "Shelf_9_6",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_9_6",
+      "target": "Shelf_9_7",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_9_7",
+      "target": "Shelf_9_8",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_9_8",
+      "target": "Shelf_9_9",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_0_0",
+      "target": "Shelf_1_0",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_0",
+      "target": "Shelf_2_0",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_0",
+      "target": "Shelf_3_0",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_0",
+      "target": "Shelf_4_0",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_4_0",
+      "target": "Shelf_5_0",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_5_0",
+      "target": "Shelf_6_0",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_6_0",
+      "target": "Shelf_7_0",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_7_0",
+      "target": "Shelf_8_0",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_8_0",
+      "target": "Shelf_9_0",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_0_1",
+      "target": "Shelf_1_1",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_1",
+      "target": "Shelf_2_1",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_1",
+      "target": "Shelf_3_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_3_1",
+      "target": "Shelf_4_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_4_1",
+      "target": "Shelf_5_1",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_5_1",
+      "target": "Shelf_6_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_6_1",
+      "target": "Shelf_7_1",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_7_1",
+      "target": "Shelf_8_1",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_1",
+      "target": "Shelf_9_1",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_0_2",
+      "target": "Shelf_1_2",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_1_2",
+      "target": "Shelf_2_2",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_2",
+      "target": "Shelf_3_2",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_3_2",
+      "target": "Shelf_4_2",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_4_2",
+      "target": "Shelf_5_2",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_5_2",
+      "target": "Shelf_6_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_2",
+      "target": "Shelf_7_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_7_2",
+      "target": "Shelf_8_2",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_8_2",
+      "target": "Shelf_9_2",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_3",
+      "target": "Shelf_1_3",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_3",
+      "target": "Shelf_2_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_2_3",
+      "target": "Shelf_3_3",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_3_3",
+      "target": "Shelf_4_3",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_3",
+      "target": "Shelf_5_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_5_3",
+      "target": "Shelf_6_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_6_3",
+      "target": "Shelf_7_3",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_7_3",
+      "target": "Shelf_8_3",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_8_3",
+      "target": "Shelf_9_3",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_0_4",
+      "target": "Shelf_1_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_1_4",
+      "target": "Shelf_2_4",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_4",
+      "target": "Shelf_3_4",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_3_4",
+      "target": "Shelf_4_4",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_4",
+      "target": "Shelf_5_4",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_5_4",
+      "target": "Shelf_6_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_6_4",
+      "target": "Shelf_7_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_4",
+      "target": "Shelf_8_4",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_8_4",
+      "target": "Shelf_9_4",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_0_5",
+      "target": "Shelf_1_5",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_1_5",
+      "target": "Shelf_2_5",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_5",
+      "target": "Shelf_3_5",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_3_5",
+      "target": "Shelf_4_5",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_5",
+      "target": "Shelf_5_5",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_5_5",
+      "target": "Shelf_6_5",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_6_5",
+      "target": "Shelf_7_5",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_7_5",
+      "target": "Shelf_8_5",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_5",
+      "target": "Shelf_9_5",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_0_6",
+      "target": "Shelf_1_6",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_1_6",
+      "target": "Shelf_2_6",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_6",
+      "target": "Shelf_3_6",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_3_6",
+      "target": "Shelf_4_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_4_6",
+      "target": "Shelf_5_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_5_6",
+      "target": "Shelf_6_6",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_6_6",
+      "target": "Shelf_7_6",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_7_6",
+      "target": "Shelf_8_6",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_6",
+      "target": "Shelf_9_6",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_0_7",
+      "target": "Shelf_1_7",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_7",
+      "target": "Shelf_2_7",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_2_7",
+      "target": "Shelf_3_7",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_3_7",
+      "target": "Shelf_4_7",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_4_7",
+      "target": "Shelf_5_7",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_5_7",
+      "target": "Shelf_6_7",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_6_7",
+      "target": "Shelf_7_7",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_7_7",
+      "target": "Shelf_8_7",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_8_7",
+      "target": "Shelf_9_7",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_8",
+      "target": "Shelf_1_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_1_8",
+      "target": "Shelf_2_8",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_2_8",
+      "target": "Shelf_3_8",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_3_8",
+      "target": "Shelf_4_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_4_8",
+      "target": "Shelf_5_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_5_8",
+      "target": "Shelf_6_8",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_6_8",
+      "target": "Shelf_7_8",
+      "weight": 8
+    },
+    {
+      "source": "Shelf_7_8",
+      "target": "Shelf_8_8",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_8_8",
+      "target": "Shelf_9_8",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_0_9",
+      "target": "Shelf_1_9",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_1_9",
+      "target": "Shelf_2_9",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_2_9",
+      "target": "Shelf_3_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_3_9",
+      "target": "Shelf_4_9",
+      "weight": 9
+    },
+    {
+      "source": "Shelf_4_9",
+      "target": "Shelf_5_9",
+      "weight": 10
+    },
+    {
+      "source": "Shelf_5_9",
+      "target": "Shelf_6_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_6_9",
+      "target": "Shelf_7_9",
+      "weight": 12
+    },
+    {
+      "source": "Shelf_7_9",
+      "target": "Shelf_8_9",
+      "weight": 11
+    },
+    {
+      "source": "Shelf_8_9",
+      "target": "Shelf_9_9",
+      "weight": 9
+    },
+    {
+      "source": "Dock_0",
+      "target": "Shelf_5_0",
+      "weight": 5
+    },
+    {
+      "source": "Picking_0",
+      "target": "Shelf_5_9",
+      "weight": 5
+    }
+  ]
+}
