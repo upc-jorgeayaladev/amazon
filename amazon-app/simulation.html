@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Warehouse</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.11.1/core.js"></script>
+</head>
+<body>
+
+<py-config>
+packages = ["matplotlib"]
+[[fetch]]
+files = [
+  "python/__init__.py",
+  "python/graph.py",
+  "python/astar.py",
+  "python/warehouse.py",
+  "python/router.py",
+  "python/main.py"
+]
+</py-config>
+
+<header class="app-header">
+  <a class="brand" href="index.html" aria-label="Nexus Warehouse">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
+    </span>
+    <span>Nexus <strong>Warehouse</strong></span>
+  </a>
+  <nav class="header-nav">
+    <a href="index.html" class="nav-link">Inicio</a>
+    <a href="catalog.html" class="nav-link">Catálogo</a>
+    <a href="simulation.html" class="nav-link active">Simulador</a>
+  </nav>
+</header>
+
+<main class="app-main">
+  <section class="canvas-panel">
+    <div class="map-heading">
+      <div>
+        <span class="eyebrow">Centro de operaciones</span>
+        <h1>Mapa inteligente del almacén</h1>
+      </div>
+      <span class="live-indicator"><i></i> Sistema activo</span>
+    </div>
+
+    <div class="canvas-shell">
+      <div class="canvas-loading" id="canvas-loading">
+        <div class="spinner"></div>
+        <span>Preparando el almacén...</span>
+      </div>
+      <canvas id="warehouse-canvas" style="display:none"></canvas>
+      <div class="map-controls" aria-label="Controles del mapa">
+        <button id="map-zoom-in" type="button" title="Acercar">+</button>
+        <button id="map-zoom-out" type="button" title="Alejar">−</button>
+        <button id="map-reset" type="button" title="Restablecer vista">
+          <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 .2 3M20 4v7h-7"/></svg>
+        </button>
+      </div>
+      <div class="map-help">Rueda para zoom · Arrastra para mover</div>
+    </div>
+  </section>
+
+  <aside class="side-panel">
+    <section class="stats-grid" aria-label="Resumen del almacén">
+      <article class="stat-card">
+        <span>Estanterías</span>
+        <strong id="stat-shelfs">-</strong>
+      </article>
+      <article class="stat-card">
+        <span>Zonas</span>
+        <strong id="stat-zones">-</strong>
+      </article>
+      <article class="stat-card">
+        <span>Productos</span>
+        <strong id="stat-products">-</strong>
+      </article>
+    </section>
+
+    <section class="panel-card cart-summary">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Pedido actual</span>
+          <h2>Carrito</h2>
+        </div>
+        <button class="cart-button" id="btn-open-cart" type="button" aria-label="Abrir catálogo">
+          <svg viewBox="0 0 24 24"><path d="M3 4h2l2.1 9.1a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L20 7H6M9 20h.01M17 20h.01"/></svg>
+          <span id="cart-badge">0</span>
+        </button>
+      </div>
+
+      <div class="order-list" id="order-list">
+        <div class="empty-state compact">
+          <span class="empty-icon">+</span>
+          Agrega productos desde el catálogo
+        </div>
+      </div>
+
+      <div class="order-total">
+        <span>Total del pedido</span>
+        <strong id="order-total">$0.00</strong>
+      </div>
+    </section>
+
+    <section class="panel-card">
+      <div class="section-heading simple">
+        <div>
+          <span class="eyebrow">Optimización</span>
+          <h2>Acciones</h2>
+        </div>
+      </div>
+      <div class="action-grid">
+        <button class="btn btn-primary" id="btn-calculate" type="button" disabled>
+          <svg viewBox="0 0 24 24"><path d="M5 5h5v5H5zM14 14h5v5h-5zM7.5 10v2a4 4 0 0 0 4 4H14M10 7h4a3 3 0 0 1 3 3v4"/></svg>
+          Calcular ruta
+        </button>
+        <button class="btn btn-secondary" id="btn-simulate" type="button">
+          <svg viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 1 0 .2 3M20 4v7h-7"/></svg>
+          Simular pedido
+        </button>
+        <button class="btn btn-ghost" id="btn-clear" type="button">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M8 7l1 13h6l1-13"/></svg>
+          Limpiar
+        </button>
+        <button class="btn btn-ghost" id="btn-matplotlib" type="button" disabled>
+          <svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+          Ver gráfico
+        </button>
+      </div>
+    </section>
+
+    <section class="panel-card route-card">
+      <div class="section-heading simple">
+        <div>
+          <span class="eyebrow">Recorrido</span>
+          <h2>Ruta calculada</h2>
+        </div>
+      </div>
+      <div class="route-results" id="route-results">
+        <div class="empty-state compact">Selecciona productos para preparar la ruta.</div>
+      </div>
+    </section>
+
+    <section class="zone-panel">
+      <span class="eyebrow">Zonas activas</span>
+      <div class="zone-legend" id="zone-legend"></div>
+    </section>
+  </aside>
+</main>
+
+<div class="modal-overlay" id="modal-cart" role="dialog" aria-modal="true" aria-labelledby="catalog-title">
+  <div class="catalog-modal">
+    <aside class="catalog-sidebar">
+      <div class="catalog-brand">
+        <span class="brand-mark small">
+          <svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
+        </span>
+        <div>
+          <span class="eyebrow">Inventario</span>
+          <strong>Categorías</strong>
+        </div>
+      </div>
+      <nav class="category-list" id="category-list"></nav>
+      <div class="catalog-cart-note">
+        <span id="modal-item-count">0 productos</span>
+        <strong id="modal-total">$0.00</strong>
+      </div>
+    </aside>
+
+    <section class="catalog-content">
+      <header class="catalog-header">
+        <div>
+          <span class="eyebrow">Catálogo general</span>
+          <h2 id="catalog-title">Selecciona productos</h2>
+        </div>
+        <div class="catalog-header-actions">
+          <label class="catalog-search">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input id="catalog-search" type="search" placeholder="Buscar por nombre...">
+          </label>
+          <button class="modal-close" id="cart-close" type="button" aria-label="Cerrar">&times;</button>
+        </div>
+      </header>
+
+      <div class="catalog-meta">
+        <span id="catalog-result-count">0 productos disponibles</span>
+        <span>Stock actualizado</span>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+      <button class="load-more" id="btn-load-more" type="button">Mostrar más productos</button>
+
+      <footer class="catalog-footer">
+        <div>
+          <span>Resumen del pedido</span>
+          <strong><span id="footer-item-count">0</span> unidades · <span id="footer-total">$0.00</span></strong>
+        </div>
+        <button class="btn btn-primary confirm-order" id="btn-confirm-cart" type="button">
+          Confirmar pedido
+          <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-matplotlib" role="dialog" aria-modal="true" aria-labelledby="graph-title">
+  <div class="graph-modal">
+    <header>
+      <div>
+        <span class="eyebrow">Visualización técnica</span>
+        <h2 id="graph-title">Grafo de la ruta optimizada</h2>
+      </div>
+      <button class="modal-close" id="graph-close" type="button" aria-label="Cerrar">&times;</button>
+    </header>
+    <div class="graph-stage">
+      <div class="graph-loading" id="graph-loading"><div class="spinner"></div>Generando visualización...</div>
+      <img id="matplotlib-img" alt="Grafo del almacén generado con Matplotlib">
+    </div>
+  </div>
+</div>
+
+<script id="pyscript-main" type="py">
+import json
+from python.main import init_app, get_warehouse_data
+from pyscript import window
+from js import fetch, JSON
+
+async def load_data():
+    try:
+        files = []
+        for path in ["shelfs.json", "zones.json", "categories.json", "products.json"]:
+            response = await fetch(f"data/{path}")
+            files.append(await response.text())
+        return json.loads(init_app(*files))
+    except Exception as error:
+        print(f"Error loading data: {error}")
+        return {"error": str(error)}
+
+result = await load_data()
+print(f"Warehouse initialized: {result}")
+
+if "shelfs" in result:
+    window.warehouseData = JSON.parse(get_warehouse_data())
+    window.dispatchEvent(window.Event.new("warehouse-ready"))
+</script>
+
+<script>
+let warehouseData = null;
+let selectedShelves = [];
+let currentRoute = null;
+let cart = {};
+let activeCategory = 'all';
+let catalogLimit = 48;
+let mapZoom = 1.18;
+let mapPanX = 0;
+let mapPanY = 0;
+let mapDragging = false;
+let mapDragStart = null;
+
+const categoryNames = {
+  'laptops': 'Laptops',
+  'smartphones': 'Smartphones',
+  'headphones': 'Audífonos',
+  'books': 'Libros',
+  'kitchen appliances': 'Cocina',
+  'smart watches': 'Smartwatches',
+  'gaming mice': 'Mouse gaming',
+  'keyboards': 'Teclados',
+  'monitors': 'Monitores',
+  'tablets': 'Tablets',
+  'wireless earbuds': 'Earbuds',
+  'coffee machines': 'Cafeteras'
+};
+
+const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+window.addEventListener('warehouse-ready', function() {
+  warehouseData = window.warehouseData;
+  document.getElementById('stat-shelfs').textContent = warehouseData.shelfs.length;
+  document.getElementById('stat-zones').textContent = warehouseData.zones.length;
+  document.getElementById('stat-products').textContent = warehouseData.products.length.toLocaleString('es-PE');
+  document.getElementById('canvas-loading').style.display = 'none';
+  document.getElementById('warehouse-canvas').style.display = 'block';
+  initCanvas();
+  renderLegend();
+  renderCategories();
+  renderCatalog();
+  updateOrderUI();
+});
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, function(char) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char];
+  });
+}
+
+function getProduct(id) {
+  return warehouseData.products.find(function(product) { return String(product.id) === String(id); });
+}
+
+function getCartEntries() {
+  return Object.entries(cart)
+    .map(function(entry) { return { product: getProduct(entry[0]), quantity: entry[1] }; })
+    .filter(function(entry) { return entry.product; });
+}
+
+function cartUnitCount() {
+  return Object.values(cart).reduce(function(total, quantity) { return total + quantity; }, 0);
+}
+
+function cartTotal() {
+  return getCartEntries().reduce(function(total, entry) {
+    return total + Number(entry.product.price || 0) * entry.quantity;
+  }, 0);
+}
+
+function syncShelvesFromCart() {
+  selectedShelves = [];
+  getCartEntries().forEach(function(entry) {
+    if (entry.product.shelf && selectedShelves.indexOf(entry.product.shelf) < 0) {
+      selectedShelves.push(entry.product.shelf);
+    }
+  });
+  currentRoute = null;
+  document.getElementById('btn-matplotlib').disabled = true;
+  document.getElementById('btn-calculate').disabled = selectedShelves.length === 0;
+  document.getElementById('route-results').innerHTML =
+    '<div class="empty-state compact">Selecciona productos para preparar la ruta.</div>';
+  drawWarehouse(document.getElementById('warehouse-canvas'));
+}
+
+function setProductQuantity(id, quantity) {
+  const product = getProduct(id);
+  if (!product) return;
+  const safeQuantity = Math.max(0, Math.min(Number(product.stock || 0), Number(quantity || 0)));
+  if (safeQuantity === 0) delete cart[id];
+  else cart[id] = safeQuantity;
+  syncShelvesFromCart();
+  updateOrderUI();
+  renderCatalog();
+}
+
+function updateOrderUI() {
+  const entries = getCartEntries();
+  const list = document.getElementById('order-list');
+  const count = cartUnitCount();
+  const total = cartTotal();
+
+  document.getElementById('cart-badge').textContent = count;
+  document.getElementById('modal-item-count').textContent = count + (count === 1 ? ' producto' : ' productos');
+  document.getElementById('modal-total').textContent = money.format(total);
+  document.getElementById('footer-item-count').textContent = count;
+  document.getElementById('footer-total').textContent = money.format(total);
+  document.getElementById('order-total').textContent = money.format(total);
+
+  if (!entries.length) {
+    list.innerHTML = '<div class="empty-state compact"><span class="empty-icon">+</span>Agrega productos desde el catálogo</div>';
+    return;
+  }
+
+  list.innerHTML = entries.map(function(entry) {
+    const product = entry.product;
+    return '<article class="order-item">'
+      + '<img src="' + escapeHtml(product.image_url) + '" alt="" onerror="this.classList.add(\'image-error\')">'
+      + '<div class="order-item-info"><strong title="' + escapeHtml(product.title) + '">' + escapeHtml(product.title) + '</strong>'
+      + '<span>' + entry.quantity + ' × ' + money.format(product.price) + ' · ' + escapeHtml(product.shelf || '') + '</span></div>'
+      + '<button type="button" onclick="setProductQuantity(\'' + product.id + '\', 0)" aria-label="Quitar producto">&times;</button>'
+      + '</article>';
+  }).join('');
+}
+
+function renderCategories() {
+  const counts = {};
+  warehouseData.products.forEach(function(product) {
+    counts[product.category] = (counts[product.category] || 0) + 1;
+  });
+
+  const categories = ['all'].concat(Object.keys(counts).sort());
+  document.getElementById('category-list').innerHTML = categories.map(function(category) {
+    const label = category === 'all' ? 'Todos los productos' : (categoryNames[category] || category);
+    const count = category === 'all' ? warehouseData.products.length : counts[category];
+    return '<button type="button" class="category-button ' + (activeCategory === category ? 'active' : '')
+      + '" onclick="selectCategory(\'' + escapeHtml(category) + '\')">'
+      + '<span>' + escapeHtml(label) + '</span><small>' + count + '</small></button>';
+  }).join('');
+}
+
+function selectCategory(category) {
+  activeCategory = category;
+  catalogLimit = 48;
+  renderCategories();
+  renderCatalog();
+}
+
+function filteredProducts() {
+  const query = document.getElementById('catalog-search').value.toLowerCase().trim();
+  return warehouseData.products.filter(function(product) {
+    const categoryMatch = activeCategory === 'all' || product.category === activeCategory;
+    const searchMatch = !query || product.title.toLowerCase().includes(query)
+      || product.category.toLowerCase().includes(query);
+    return categoryMatch && searchMatch;
+  });
+}
+
+function renderCatalog() {
+  if (!warehouseData) return;
+  const products = filteredProducts();
+  const visible = products.slice(0, catalogLimit);
+  document.getElementById('catalog-result-count').textContent =
+    products.length.toLocaleString('es-PE') + ' productos disponibles';
+
+  document.getElementById('product-grid').innerHTML = visible.map(function(product) {
+    const quantity = cart[product.id] || 0;
+    const category = categoryNames[product.category] || product.category;
+    return '<article class="product-card ' + (quantity ? 'selected' : '') + '">'
+      + '<div class="product-image"><img src="' + escapeHtml(product.image_url) + '" alt="' + escapeHtml(product.title)
+      + '" loading="lazy" onerror="this.parentElement.classList.add(\'image-error\');this.remove()">'
+      + '<span class="stock-pill">' + product.stock + ' en stock</span></div>'
+      + '<div class="product-card-body"><span class="product-category">' + escapeHtml(category) + '</span>'
+      + '<h3 title="' + escapeHtml(product.title) + '">' + escapeHtml(product.title) + '</h3>'
+      + '<div class="product-card-footer"><strong>' + money.format(product.price) + '</strong>'
+      + (quantity
+        ? '<div class="quantity-control"><button type="button" onclick="setProductQuantity(\'' + product.id + '\',' + (quantity - 1) + ')">−</button>'
+          + '<span>' + quantity + '</span><button type="button" onclick="setProductQuantity(\'' + product.id + '\',' + (quantity + 1) + ')">+</button></div>'
+        : '<button class="add-product" type="button" onclick="setProductQuantity(\'' + product.id + '\',1)">Agregar</button>')
+      + '</div></div></article>';
+  }).join('');
+
+  const loadMore = document.getElementById('btn-load-more');
+  loadMore.style.display = products.length > catalogLimit ? 'block' : 'none';
+}
+
+function openCart() {
+  document.getElementById('modal-cart').classList.add('active');
+  document.body.classList.add('modal-open');
+  renderCatalog();
+  setTimeout(function() { document.getElementById('catalog-search').focus(); }, 100);
+}
+
+function closeCart() {
+  document.getElementById('modal-cart').classList.remove('active');
+  document.body.classList.remove('modal-open');
+}
+
+let hoveredShelf = null;
+let routeAnimProgress = 0;
+let routeAnimId = null;
+let robotAnimProgress = 0;
+let robotAnimId = null;
+let robotAnimPath = null;
+
+function initCanvas() {
+  const canvas = document.getElementById('warehouse-canvas');
+  resizeCanvas();
+  canvas.addEventListener('wheel', onCanvasWheel, { passive: false });
+  canvas.addEventListener('pointerdown', onCanvasPointerDown);
+  canvas.addEventListener('pointermove', onCanvasPointerMove);
+  canvas.addEventListener('pointerup', onCanvasPointerUp);
+  canvas.addEventListener('pointercancel', onCanvasPointerUp);
+  canvas.addEventListener('pointerleave', onCanvasPointerUp);
+  canvas.addEventListener('mousemove', onCanvasMove);
+  canvas.addEventListener('mouseleave', function() {
+    hoveredShelf = null;
+    removeTooltip();
+    drawWarehouse(canvas);
+  });
+}
+
+function resizeCanvas() {
+  const canvas = document.getElementById('warehouse-canvas');
+  const shell = canvas.parentElement;
+  canvas.width = Math.max(shell.clientWidth - 16, 520);
+  canvas.height = Math.max(shell.clientHeight - 16, 480);
+  removeTooltip();
+  drawWarehouse(canvas);
+}
+
+function animateRoute() {
+  if (routeAnimId) cancelAnimationFrame(routeAnimId);
+  if (robotAnimId) cancelAnimationFrame(robotAnimId);
+  routeAnimProgress = 0;
+  robotAnimProgress = 0;
+  robotAnimPath = currentRoute ? currentRoute.path : null;
+
+  function step() {
+    routeAnimProgress += 0.02;
+    if (routeAnimProgress > 1) routeAnimProgress = 1;
+    drawWarehouse(document.getElementById('warehouse-canvas'));
+    if (routeAnimProgress < 1) routeAnimId = requestAnimationFrame(step);
+  }
+  routeAnimId = requestAnimationFrame(step);
+
+  if (robotAnimPath) {
+    function robotStep() {
+      robotAnimProgress += 0.008;
+      if (robotAnimProgress > 1) robotAnimProgress = 1;
+      drawWarehouse(document.getElementById('warehouse-canvas'));
+      if (robotAnimProgress < 1) robotAnimId = requestAnimationFrame(robotStep);
+    }
+    robotAnimId = requestAnimationFrame(robotStep);
+  }
+}
+
+function getScale(canvas) {
+  return (Math.min(canvas.width - 130, canvas.height - 130) / 110) * mapZoom;
+}
+
+function toCanvas(canvas, wx, wy) {
+  const scale = getScale(canvas);
+  return {
+    x: canvas.width / 2 + mapPanX + (wx - 50) * scale,
+    y: canvas.height / 2 + mapPanY + (wy - 50) * scale
+  };
+}
+
+function toWorld(canvas, screenX, screenY) {
+  const scale = getScale(canvas);
+  return {
+    x: (screenX - canvas.width / 2 - mapPanX) / scale + 50,
+    y: (screenY - canvas.height / 2 - mapPanY) / scale + 50
+  };
+}
+
+function roundRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, width, height, radius);
+}
+
+function drawWarehouse(canvas) {
+  if (!warehouseData || !canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground(ctx, canvas);
+  drawZones(ctx, canvas);
+  drawShelves(ctx, canvas);
+  drawDockPick(ctx, canvas);
+  if (currentRoute) drawRoute(ctx, canvas, currentRoute.path);
+  drawScaleBar(ctx, canvas);
+  drawTooltip(ctx, canvas);
+}
+
+function drawBackground(ctx, canvas) {
+  const gradient = ctx.createRadialGradient(
+    canvas.width / 2, canvas.height / 2, 0,
+    canvas.width / 2, canvas.height / 2, canvas.width * 0.7
+  );
+  gradient.addColorStop(0, '#0f1f35');
+  gradient.addColorStop(0.6, '#0a1628');
+  gradient.addColorStop(1, '#060e1a');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const origin = toCanvas(canvas, 0, 0);
+  const end = toCanvas(canvas, 100, 100);
+  const step = (end.x - origin.x) / 10;
+
+  ctx.strokeStyle = 'rgba(60, 100, 150, .07)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 10; i++) {
+    const x = origin.x + i * step;
+    const y = origin.y + i * step;
+    ctx.beginPath();
+    ctx.moveTo(x, origin.y);
+    ctx.lineTo(x, end.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(origin.x, y);
+    ctx.lineTo(end.x, y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = 'rgba(60, 100, 150, .15)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 10; i += 5) {
+    const x = origin.x + i * step;
+    const y = origin.y + i * step;
+    ctx.beginPath();
+    ctx.moveTo(x, origin.y);
+    ctx.lineTo(x, end.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(origin.x, y);
+    ctx.lineTo(end.x, y);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = 'rgba(100, 140, 180, .25)';
+  ctx.font = '500 9px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  for (let i = 0; i <= 10; i += 2) {
+    const x = origin.x + i * step;
+    ctx.fillText(String(i * 10), x, end.y + 6);
+  }
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i <= 10; i += 2) {
+    const y = origin.y + i * step;
+    ctx.fillText(String(i * 10), origin.x - 8, y);
+  }
+}
+
+function drawZones(ctx, canvas) {
+  warehouseData.zones.forEach(function(zone) {
+    const shelves = warehouseData.shelfs.filter(function(shelf) { return zone.shelfs.includes(shelf.id); });
+    if (!shelves.length) return;
+    const xs = shelves.map(function(shelf) { return shelf.x; });
+    const ys = shelves.map(function(shelf) { return shelf.y; });
+    const pad = 8;
+    const start = toCanvas(canvas, Math.min.apply(null, xs) - pad, Math.min.apply(null, ys) - pad);
+    const end = toCanvas(canvas, Math.max.apply(null, xs) + pad, Math.max.apply(null, ys) + pad);
+    const w = end.x - start.x;
+    const h = end.y - start.y;
+
+    const grad = ctx.createLinearGradient(start.x, start.y, start.x, end.y);
+    grad.addColorStop(0, zone.color + '18');
+    grad.addColorStop(1, zone.color + '08');
+    ctx.fillStyle = grad;
+    roundRect(ctx, start.x, start.y, w, h, 10);
+    ctx.fill();
+
+    ctx.strokeStyle = zone.color + '40';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 4]);
+    roundRect(ctx, start.x, start.y, w, h, 10);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  });
+}
+
+function drawShelves(ctx, canvas) {
+  const scale = getScale(canvas);
+  const zoneColors = {};
+  warehouseData.zones.forEach(function(zone) { zoneColors[zone.id] = zone.color; });
+
+  warehouseData.shelfs.forEach(function(shelf) {
+    const point = toCanvas(canvas, shelf.x, shelf.y);
+    const size = Math.max(scale * 3.6, 12);
+    const selected = selectedShelves.includes(shelf.id);
+    const hovered = hoveredShelf && hoveredShelf.id === shelf.id;
+    const color = zoneColors[shelf.zone] || '#64748b';
+
+    if (hovered && !selected) {
+      ctx.fillStyle = 'rgba(255, 255, 255, .08)';
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, size * 1.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (selected) {
+      const pulseGrad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 1.4);
+      pulseGrad.addColorStop(0, 'rgba(251, 191, 36, .25)');
+      pulseGrad.addColorStop(1, 'rgba(251, 191, 36, 0)');
+      ctx.fillStyle = pulseGrad;
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, size * 1.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.save();
+    if (selected || hovered) {
+      ctx.shadowColor = selected ? 'rgba(251, 191, 36, .6)' : 'rgba(255, 255, 255, .15)';
+      ctx.shadowBlur = selected ? 20 : 10;
+    }
+
+    const shelfGrad = ctx.createLinearGradient(
+      point.x - size / 2, point.y - size / 2,
+      point.x + size / 2, point.y + size / 2
+    );
+    shelfGrad.addColorStop(0, color);
+    shelfGrad.addColorStop(1, adjustBrightness(color, -30));
+    ctx.fillStyle = shelfGrad;
+    roundRect(ctx, point.x - size / 2, point.y - size / 2, size, size, 3);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = selected ? '#fde047' : (hovered ? 'rgba(255,255,255,.35)' : 'rgba(255,255,255,.12)');
+    ctx.lineWidth = selected ? 2.5 : (hovered ? 2 : 1);
+    roundRect(ctx, point.x - size / 2, point.y - size / 2, size, size, 3);
+    ctx.stroke();
+
+    if (selected) {
+      const badgeR = Math.max(7, size * .3);
+      ctx.fillStyle = '#0a1420';
+      ctx.beginPath();
+      ctx.arc(point.x + size * .4, point.y - size * .4, badgeR + 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(point.x + size * .4, point.y - size * .4, badgeR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#0a1420';
+      ctx.font = '800 ' + Math.max(7, badgeR * 1.1) + 'px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('✓', point.x + size * .4, point.y - size * .4);
+    }
+
+    if (scale > 4.2) {
+      ctx.fillStyle = selected ? '#fde047' : '#fff';
+      ctx.font = '600 ' + Math.min(Math.max(scale * 1.05, 7), 12) + 'px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(0,0,0,.8)';
+      ctx.shadowBlur = 4;
+      ctx.fillText(shelf.row + ',' + shelf.col, point.x, point.y);
+      ctx.shadowBlur = 0;
+    }
+  });
+}
+
+function adjustBrightness(hex, amount) {
+  hex = hex.replace('#', '');
+  const r = Math.max(0, Math.min(255, parseInt(hex.substring(0, 2), 16) + amount));
+  const g = Math.max(0, Math.min(255, parseInt(hex.substring(2, 4), 16) + amount));
+  const b = Math.max(0, Math.min(255, parseInt(hex.substring(4, 6), 16) + amount));
+  return '#' + [r, g, b].map(function(c) { return c.toString(16).padStart(2, '0'); }).join('');
+}
+
+function drawZoneLabels(ctx, canvas) {
+  warehouseData.zones.forEach(function(zone) {
+    if (zone.label === 'AISLE') return;
+    const shelves = warehouseData.shelfs.filter(function(shelf) { return zone.shelfs.includes(shelf.id); });
+    if (!shelves.length) return;
+    const xs = shelves.map(function(shelf) { return shelf.x; });
+    const ys = shelves.map(function(shelf) { return shelf.y; });
+    const point = toCanvas(canvas, (Math.min.apply(null, xs) + Math.max.apply(null, xs)) / 2, Math.min.apply(null, ys) - 10);
+    const label = (categoryNames[zone.category] || zone.category || '').toUpperCase();
+    const fontSize = Math.min(Math.max(10 * mapZoom, 10), 16);
+    ctx.font = '800 ' + fontSize + 'px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const width = ctx.measureText(label).width + 16;
+    ctx.fillStyle = 'rgba(4, 12, 23, .82)';
+    roundRect(ctx, point.x - width / 2, point.y - 11, width, 22, 7);
+    ctx.fill();
+    ctx.strokeStyle = zone.color + 'aa';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillText(label, point.x, point.y);
+  });
+}
+
+function drawDockPick(ctx, canvas) {
+  const nodes = [
+    { point: toCanvas(canvas, -8, 55), color: '#f97316', label: 'D', name: 'DOCK', icon: 'M12 2L2 7v10l10 5 10-5V7L12 2z' },
+    { point: toCanvas(canvas, 108, 55), color: '#22c55e', label: 'P', name: 'PICK', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' }
+  ];
+
+  nodes.forEach(function(node) {
+    const r = 18;
+
+    const outerGlow = ctx.createRadialGradient(node.point.x, node.point.y, 0, node.point.x, node.point.y, r * 2.5);
+    outerGlow.addColorStop(0, node.color + '20');
+    outerGlow.addColorStop(1, node.color + '00');
+    ctx.fillStyle = outerGlow;
+    ctx.beginPath();
+    ctx.arc(node.point.x, node.point.y, r * 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.save();
+    ctx.shadowColor = node.color;
+    ctx.shadowBlur = 25;
+    const grad = ctx.createRadialGradient(
+      node.point.x - r * 0.3, node.point.y - r * 0.3, 0,
+      node.point.x, node.point.y, r
+    );
+    grad.addColorStop(0, adjustBrightness(node.color, 40));
+    grad.addColorStop(1, node.color);
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(node.point.x, node.point.y, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = 'rgba(255,255,255,.3)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(node.point.x, node.point.y, r - 1, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.fillStyle = '#fff';
+    ctx.font = '800 13px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(0,0,0,.5)';
+    ctx.shadowBlur = 4;
+    ctx.fillText(node.label, node.point.x, node.point.y + 1);
+    ctx.shadowBlur = 0;
+
+    const labelW = ctx.measureText(node.name).width + 14;
+    ctx.fillStyle = 'rgba(5, 12, 24, .85)';
+    roundRect(ctx, node.point.x - labelW / 2, node.point.y + r + 6, labelW, 18, 5);
+    ctx.fill();
+    ctx.strokeStyle = node.color + '60';
+    ctx.lineWidth = 1;
+    roundRect(ctx, node.point.x - labelW / 2, node.point.y + r + 6, labelW, 18, 5);
+    ctx.stroke();
+    ctx.fillStyle = node.color;
+    ctx.font = '700 9px Inter, sans-serif';
+    ctx.fillText(node.name, node.point.x, node.point.y + r + 15);
+  });
+}
+
+function drawRoute(ctx, canvas, path) {
+  const points = {};
+  warehouseData.shelfs.forEach(function(shelf) { points[shelf.id] = { x: shelf.x, y: shelf.y }; });
+  points.Dock_0 = { x: -8, y: 55 };
+  points.Picking_0 = { x: 108, y: 55 };
+
+  const screenPoints = [];
+  path.forEach(function(node) {
+    if (points[node]) screenPoints.push(toCanvas(canvas, points[node].x, points[node].y));
+  });
+  if (screenPoints.length < 2) return;
+
+  ctx.save();
+  ctx.shadowColor = 'rgba(245, 158, 11, .4)';
+  ctx.shadowBlur = 16;
+  ctx.strokeStyle = 'rgba(251, 191, 36, .2)';
+  ctx.lineWidth = 10;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+  for (var i = 1; i < screenPoints.length; i++) {
+    ctx.lineTo(screenPoints[i].x, screenPoints[i].y);
+  }
+  ctx.stroke();
+  ctx.restore();
+
+  const grad = ctx.createLinearGradient(
+    screenPoints[0].x, screenPoints[0].y,
+    screenPoints[screenPoints.length - 1].x, screenPoints[screenPoints.length - 1].y
+  );
+  grad.addColorStop(0, '#f97316');
+  grad.addColorStop(0.5, '#fbbf24');
+  grad.addColorStop(1, '#22c55e');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 3.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.setLineDash([12, 6]);
+  ctx.lineDashOffset = -Date.now() / 100;
+  ctx.beginPath();
+  ctx.moveTo(screenPoints[0].x, screenPoints[0].y);
+  for (var i = 1; i < screenPoints.length; i++) {
+    ctx.lineTo(screenPoints[i].x, screenPoints[i].y);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.lineDashOffset = 0;
+
+  screenPoints.forEach(function(pt, idx) {
+    var dotR = 5;
+    var dotColor = '#fbbf24';
+    if (idx === 0) { dotColor = '#f97316'; dotR = 7; }
+    else if (idx === screenPoints.length - 1) { dotColor = '#22c55e'; dotR = 7; }
+
+    ctx.save();
+    ctx.shadowColor = dotColor;
+    ctx.shadowBlur = 12;
+    ctx.fillStyle = '#0a1420';
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, dotR + 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = dotColor;
+    ctx.beginPath();
+    ctx.arc(pt.x, pt.y, dotR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    if (idx > 0 && idx < screenPoints.length - 1) {
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 7px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(idx), pt.x, pt.y);
+    }
+  });
+
+  if (robotAnimPath && robotAnimProgress > 0 && robotAnimProgress < 1) {
+    drawRobot(ctx, canvas, screenPoints, robotAnimProgress);
+  }
+}
+
+function drawRobot(ctx, canvas, screenPoints, progress) {
+  var totalLen = 0;
+  var segLens = [];
+  for (var i = 1; i < screenPoints.length; i++) {
+    var dx = screenPoints[i].x - screenPoints[i - 1].x;
+    var dy = screenPoints[i].y - screenPoints[i - 1].y;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    segLens.push(len);
+    totalLen += len;
+  }
+
+  var targetDist = progress * totalLen;
+  var accum = 0;
+  var robotX = screenPoints[0].x;
+  var robotY = screenPoints[0].y;
+  for (var i = 0; i < segLens.length; i++) {
+    if (accum + segLens[i] >= targetDist) {
+      var t = (targetDist - accum) / segLens[i];
+      robotX = screenPoints[i].x + (screenPoints[i + 1].x - screenPoints[i].x) * t;
+      robotY = screenPoints[i].y + (screenPoints[i + 1].y - screenPoints[i].y) * t;
+      break;
+    }
+    accum += segLens[i];
+  }
+
+  ctx.save();
+  ctx.shadowColor = 'rgba(251, 191, 36, .6)';
+  ctx.shadowBlur = 18;
+  ctx.font = '26px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('\uD83E\uDD16', robotX, robotY - 2);
+  ctx.restore();
+}
+
+function onCanvasMove(event) {
+  if (mapDragging) return;
+  const canvas = event.currentTarget;
+  const rect = canvas.getBoundingClientRect();
+  const world = toWorld(canvas, event.clientX - rect.left, event.clientY - rect.top);
+
+  var found = null;
+  warehouseData.shelfs.forEach(function(shelf) {
+    if (Math.hypot(shelf.x - world.x, shelf.y - world.y) < 4) {
+      found = shelf;
+    }
+  });
+
+  if (found !== hoveredShelf) {
+    hoveredShelf = found;
+    canvas.style.cursor = found ? 'pointer' : 'grab';
+    drawWarehouse(canvas);
+  }
+
+  if (found) {
+    var canvasX = event.clientX - rect.left;
+    var canvasY = event.clientY - rect.top;
+    showTooltip(canvasX, canvasY, found);
+  } else {
+    removeTooltip();
+  }
+}
+
+var tooltipEl = null;
+
+function showTooltip(x, y, shelf) {
+  if (!tooltipEl) {
+    tooltipEl = document.createElement('div');
+    tooltipEl.className = 'canvas-tooltip';
+    tooltipEl.style.cssText = 'position:absolute;pointer-events:none;z-index:100;padding:8px 12px;background:rgba(5,14,26,.94);border:1px solid rgba(148,163,184,.2);border-radius:8px;color:#f8fafc;font-size:11px;line-height:1.5;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4);backdrop-filter:blur(8px);';
+    var shell = document.getElementById('warehouse-canvas').parentElement;
+    shell.appendChild(tooltipEl);
+  }
+
+  var zone = warehouseData.zones.find(function(z) { return z.id === shelf.zone; });
+  var zoneLabel = zone ? (categoryNames[zone.category] || zone.category || zone.id) : shelf.zone;
+  var productsOnShelf = warehouseData.products.filter(function(p) { return p.shelf === shelf.id; });
+
+  tooltipEl.innerHTML = '<div style="font-weight:700;margin-bottom:3px;">' +
+    escapeHtml(shelf.row + ',' + shelf.col) +
+    ' <span style="color:' + (zone ? zone.color : '#64748b') + ';font-size:9px;">' +
+    escapeHtml(zoneLabel) + '</span></div>' +
+    '<div style="color:#8ca0b7;font-size:9px;">' + productsOnShelf.length + ' productos</div>';
+
+  var shell = tooltipEl.parentElement;
+  var shellRect = shell.getBoundingClientRect();
+  var tx = x + 16;
+  var ty = y - 10;
+  if (tx + 140 > shellRect.width) tx = x - 140;
+  if (ty < 10) ty = y + 20;
+
+  tooltipEl.style.left = tx + 'px';
+  tooltipEl.style.top = ty + 'px';
+  tooltipEl.style.display = 'block';
+}
+
+function removeTooltip() {
+  if (tooltipEl) tooltipEl.style.display = 'none';
+}
+
+function clampZoom(value) {
+  return Math.min(3.2, Math.max(.72, value));
+}
+
+function zoomMap(factor, anchorX, anchorY) {
+  const canvas = document.getElementById('warehouse-canvas');
+  const before = toWorld(canvas, anchorX, anchorY);
+  mapZoom = clampZoom(mapZoom * factor);
+  const scale = getScale(canvas);
+  mapPanX = anchorX - canvas.width / 2 - (before.x - 50) * scale;
+  mapPanY = anchorY - canvas.height / 2 - (before.y - 50) * scale;
+  drawWarehouse(canvas);
+}
+
+function onCanvasWheel(event) {
+  event.preventDefault();
+  const canvas = event.currentTarget;
+  const rect = canvas.getBoundingClientRect();
+  const factor = event.deltaY < 0 ? 1.12 : .89;
+  zoomMap(factor, event.clientX - rect.left, event.clientY - rect.top);
+}
+
+function onCanvasPointerDown(event) {
+  const canvas = event.currentTarget;
+  mapDragging = true;
+  mapDragStart = {
+    x: event.clientX,
+    y: event.clientY,
+    panX: mapPanX,
+    panY: mapPanY
+  };
+  canvas.setPointerCapture(event.pointerId);
+  canvas.style.cursor = 'grabbing';
+}
+
+function onCanvasPointerMove(event) {
+  if (!mapDragging || !mapDragStart) return;
+  mapPanX = mapDragStart.panX + event.clientX - mapDragStart.x;
+  mapPanY = mapDragStart.panY + event.clientY - mapDragStart.y;
+  drawWarehouse(event.currentTarget);
+}
+
+function onCanvasPointerUp(event) {
+  if (!mapDragging) return;
+  mapDragging = false;
+  mapDragStart = null;
+  if (event.currentTarget.hasPointerCapture && event.currentTarget.hasPointerCapture(event.pointerId)) {
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  }
+  event.currentTarget.style.cursor = 'grab';
+}
+
+function resetMapView() {
+  mapZoom = 1.18;
+  mapPanX = 0;
+  mapPanY = 0;
+  drawWarehouse(document.getElementById('warehouse-canvas'));
+}
+
+async function calculateRouteAction() {
+  if (!selectedShelves.length) return;
+  const button = document.getElementById('btn-calculate');
+  button.disabled = true;
+  button.classList.add('loading');
+  try {
+    const route = JSON.parse(await window.calculateRoute(JSON.stringify(selectedShelves)));
+    if (route.error) throw new Error(route.error);
+    currentRoute = route;
+    displayRouteResults(route);
+    document.getElementById('btn-matplotlib').disabled = false;
+    animateRoute();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    button.disabled = false;
+    button.classList.remove('loading');
+  }
+}
+
+function displayRouteResults(route) {
+  document.getElementById('route-results').innerHTML =
+    '<div class="route-metrics">'
+    + '<article><strong>' + route.total_distance + '</strong><span>Distancia</span></article>'
+    + '<article><strong>' + route.path.length + '</strong><span>Nodos</span></article>'
+    + '<article><strong>' + Math.max((route.segments || []).length - 1, 0) + '</strong><span>Paradas</span></article>'
+    + '</div><div class="route-flow">'
+    + route.path.map(function(node) { return '<span>' + escapeHtml(node) + '</span>'; }).join('<i>→</i>')
+    + '</div>';
+}
+
+async function simulateOrderAction() {
+  try {
+    const result = JSON.parse(await window.simulateOrder(5));
+    if (!result.products) return;
+    cart = {};
+    result.products.forEach(function(item) {
+      const product = getProduct(item.id);
+      if (product) cart[product.id] = 1;
+    });
+    syncShelvesFromCart();
+    updateOrderUI();
+    currentRoute = result.route;
+    displayRouteResults(result.route);
+    document.getElementById('btn-matplotlib').disabled = false;
+    animateRoute();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function clearSelectionAction() {
+  cart = {};
+  selectedShelves = [];
+  currentRoute = null;
+  if (routeAnimId) { cancelAnimationFrame(routeAnimId); routeAnimId = null; }
+  if (robotAnimId) { cancelAnimationFrame(robotAnimId); robotAnimId = null; }
+  robotAnimProgress = 0;
+  robotAnimPath = null;
+  updateOrderUI();
+  renderCatalog();
+  document.getElementById('btn-calculate').disabled = true;
+  document.getElementById('btn-matplotlib').disabled = true;
+  document.getElementById('route-results').innerHTML =
+    '<div class="empty-state compact">Selecciona productos para preparar la ruta.</div>';
+  drawWarehouse(document.getElementById('warehouse-canvas'));
+}
+
+async function showMatplotlib() {
+  if (!currentRoute) return;
+  const modal = document.getElementById('modal-matplotlib');
+  const image = document.getElementById('matplotlib-img');
+  const loading = document.getElementById('graph-loading');
+  image.removeAttribute('src');
+  image.style.display = 'none';
+  loading.style.display = 'flex';
+  modal.classList.add('active');
+  document.body.classList.add('modal-open');
+  try {
+    image.onload = function() {
+      loading.style.display = 'none';
+      image.style.display = 'block';
+    };
+    image.onerror = function() {
+      loading.classList.add('error');
+      loading.textContent = 'La imagen del gráfico no pudo cargarse.';
+    };
+
+    if (typeof window.renderMatplotlib !== 'function') {
+      throw new Error('El módulo de Matplotlib todavía no está disponible.');
+    }
+
+    const result = String(await window.renderMatplotlib(JSON.stringify(currentRoute)) || '');
+    if (!result.startsWith('data:image/')) {
+      let message = 'Matplotlib no devolvió una imagen válida.';
+      try {
+        const errorData = JSON.parse(result);
+        if (errorData.error) message = errorData.error;
+      } catch (_) {}
+      throw new Error(message);
+    }
+    image.src = result;
+  } catch (error) {
+    loading.classList.add('error');
+    loading.textContent = error.message || 'No fue posible generar el gráfico.';
+    console.error(error);
+  }
+}
+
+function closeGraph() {
+  document.getElementById('modal-matplotlib').classList.remove('active');
+  document.body.classList.remove('modal-open');
+}
+
+function renderLegend() {
+  document.getElementById('zone-legend').innerHTML = warehouseData.zones
+    .filter(function(zone) { return zone.label !== 'AISLE'; })
+    .map(function(zone) {
+      const label = categoryNames[zone.category] || zone.category || zone.id;
+      return '<span class="zone-legend-item" title="' + escapeHtml(label) + '">'
+        + '<i style="background:' + zone.color + '"></i>'
+        + '<b>' + escapeHtml(label) + '</b></span>';
+    }).join('');
+}
+
+function drawScaleBar(ctx, canvas) {
+  var scale = getScale(canvas);
+  var barWorldUnits = 20;
+  var barPixels = barWorldUnits * scale;
+  var x = canvas.width - 30 - barPixels;
+  var y = canvas.height - 28;
+
+  ctx.fillStyle = 'rgba(5, 14, 26, .75)';
+  roundRect(ctx, x - 8, y - 10, barPixels + 16, 26, 6);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(148, 163, 184, .2)';
+  ctx.lineWidth = 1;
+  roundRect(ctx, x - 8, y - 10, barPixels + 16, 26, 6);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(200, 220, 240, .5)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x, y + 3);
+  ctx.lineTo(x + barPixels, y + 3);
+  ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(200, 220, 240, .4)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x, y - 1);
+  ctx.lineTo(x, y + 7);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x + barPixels, y - 1);
+  ctx.lineTo(x + barPixels, y + 7);
+  ctx.stroke();
+
+  ctx.fillStyle = 'rgba(200, 220, 240, .6)';
+  ctx.font = '600 9px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText(barWorldUnits + 'u', x + barPixels / 2, y + 8);
+}
+
+function drawTooltip(ctx, canvas) {
+  // tooltip is rendered as DOM overlay, nothing to draw on canvas
+}
+
+document.getElementById('btn-open-cart').addEventListener('click', openCart);
+document.getElementById('cart-close').addEventListener('click', closeCart);
+document.getElementById('btn-confirm-cart').addEventListener('click', closeCart);
+document.getElementById('catalog-search').addEventListener('input', function() {
+  catalogLimit = 48;
+  renderCatalog();
+});
+document.getElementById('btn-load-more').addEventListener('click', function() {
+  catalogLimit += 48;
+  renderCatalog();
+});
+document.getElementById('btn-calculate').addEventListener('click', calculateRouteAction);
+document.getElementById('btn-simulate').addEventListener('click', simulateOrderAction);
+document.getElementById('btn-clear').addEventListener('click', clearSelectionAction);
+document.getElementById('btn-matplotlib').addEventListener('click', showMatplotlib);
+document.getElementById('map-zoom-in').addEventListener('click', function() {
+  const canvas = document.getElementById('warehouse-canvas');
+  zoomMap(1.2, canvas.width / 2, canvas.height / 2);
+});
+document.getElementById('map-zoom-out').addEventListener('click', function() {
+  const canvas = document.getElementById('warehouse-canvas');
+  zoomMap(.84, canvas.width / 2, canvas.height / 2);
+});
+document.getElementById('map-reset').addEventListener('click', resetMapView);
+document.getElementById('graph-close').addEventListener('click', closeGraph);
+document.getElementById('modal-cart').addEventListener('click', function(event) {
+  if (event.target === event.currentTarget) closeCart();
+});
+document.getElementById('modal-matplotlib').addEventListener('click', function(event) {
+  if (event.target === event.currentTarget) closeGraph();
+});
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeCart();
+    closeGraph();
+  }
+});
+window.addEventListener('resize', function() {
+  if (warehouseData) resizeCanvas();
+});
+</script>
+</body>
+</html>

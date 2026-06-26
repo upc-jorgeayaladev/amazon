@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — Nexus Warehouse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="catalog-body">
+
+<header class="app-header">
+  <a class="brand" href="index.html" aria-label="Nexus Warehouse">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></svg>
+    </span>
+    <span>Nexus <strong>Warehouse</strong></span>
+  </a>
+  <nav class="header-nav">
+    <a href="index.html" class="nav-link">Inicio</a>
+    <a href="catalog.html" class="nav-link active">Catálogo</a>
+    <a href="simulation.html" class="nav-link btn-nav-accent">Simulador</a>
+  </nav>
+</header>
+
+<main class="catalog-page">
+  <aside class="catalog-sidebar-page">
+    <div class="sidebar-header">
+      <span class="eyebrow">Inventario</span>
+      <h2>Categorías</h2>
+    </div>
+    <nav class="category-list-page" id="category-list"></nav>
+    <div class="catalog-summary" id="catalog-summary">
+      <span id="total-count">0 productos</span>
+    </div>
+  </aside>
+
+  <section class="catalog-main">
+    <div class="catalog-topbar">
+      <div>
+        <span class="eyebrow">Catálogo general</span>
+        <h1 id="catalog-title">Todos los productos</h1>
+      </div>
+      <div class="catalog-topbar-actions">
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" width="17" height="17"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="search-input" type="search" placeholder="Buscar por nombre...">
+        </label>
+        <span class="result-count" id="result-count">0 productos</span>
+      </div>
+    </div>
+    <div class="product-grid-page" id="product-grid"></div>
+    <button class="load-more-page" id="btn-load-more" type="button">Mostrar más productos</button>
+  </section>
+</main>
+
+<script>
+let allProducts = [];
+let activeCategory = 'all';
+let catalogLimit = 48;
+
+const categoryNames = {
+  'laptops': 'Laptops',
+  'smartphones': 'Smartphones',
+  'headphones': 'Audífonos',
+  'books': 'Libros',
+  'kitchen appliances': 'Cocina',
+  'smart watches': 'Smartwatches',
+  'gaming mice': 'Mouse gaming',
+  'keyboards': 'Teclados',
+  'monitors': 'Monitores',
+  'tablets': 'Tablets',
+  'wireless earbuds': 'Earbuds',
+  'coffee machines': 'Cafeteras'
+};
+
+const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];
+  });
+}
+
+async function loadProducts() {
+  try {
+    const response = await fetch('data/products.json');
+    allProducts = await response.json();
+    document.getElementById('total-count').textContent = allProducts.length.toLocaleString('es-PE') + ' productos';
+    renderCategories();
+    renderCatalog();
+  } catch (error) {
+    console.error('Error loading products:', error);
+  }
+}
+
+function renderCategories() {
+  const counts = {};
+  allProducts.forEach(function(p) {
+    counts[p.category] = (counts[p.category] || 0) + 1;
+  });
+
+  const categories = ['all'].concat(Object.keys(counts).sort());
+  document.getElementById('category-list').innerHTML = categories.map(function(cat) {
+    var label = cat === 'all' ? 'Todos los productos' : (categoryNames[cat] || cat);
+    var count = cat === 'all' ? allProducts.length : counts[cat];
+    return '<button type="button" class="category-btn-page ' + (activeCategory === cat ? 'active' : '') + '" data-cat="' + escapeHtml(cat) + '">'
+      + '<span>' + escapeHtml(label) + '</span><small>' + count + '</small></button>';
+  }).join('');
+
+  document.querySelectorAll('.category-btn-page').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      activeCategory = this.getAttribute('data-cat');
+      catalogLimit = 48;
+      renderCategories();
+      renderCatalog();
+    });
+  });
+}
+
+function filteredProducts() {
+  var query = document.getElementById('search-input').value.toLowerCase().trim();
+  return allProducts.filter(function(p) {
+    var catMatch = activeCategory === 'all' || p.category === activeCategory;
+    var searchMatch = !query || p.title.toLowerCase().includes(query) || p.category.toLowerCase().includes(query);
+    return catMatch && searchMatch;
+  });
+}
+
+function renderCatalog() {
+  var products = filteredProducts();
+  var visible = products.slice(0, catalogLimit);
+
+  document.getElementById('catalog-title').textContent =
+    activeCategory === 'all' ? 'Todos los productos' : (categoryNames[activeCategory] || activeCategory);
+  document.getElementById('result-count').textContent = products.length.toLocaleString('es-PE') + ' productos';
+
+  document.getElementById('product-grid').innerHTML = visible.map(function(p) {
+    var category = categoryNames[p.category] || p.category;
+    return '<article class="product-card-page">'
+      + '<div class="product-image-page"><img src="' + escapeHtml(p.image_url) + '" alt="' + escapeHtml(p.title)
+      + '" loading="lazy" onerror="this.parentElement.classList.add(\'image-error\')">'
+      + '<span class="stock-pill-page">' + p.stock + ' en stock</span></div>'
+      + '<div class="product-card-body-page">'
+      + '<span class="product-cat-page">' + escapeHtml(category) + '</span>'
+      + '<h3 title="' + escapeHtml(p.title) + '">' + escapeHtml(p.title) + '</h3>'
+      + '<div class="product-meta-page">'
+      + '<span class="product-weight-page">' + p.weight + ' kg</span>'
+      + '<span class="product-rating-page">★ ' + p.rating + '</span>'
+      + '</div>'
+      + '<div class="product-footer-page">'
+      + '<strong>' + money.format(p.price) + '</strong>'
+      + '<a href="simulation.html" class="btn-view-sim">Simular ruta</a>'
+      + '</div></div></article>';
+  }).join('');
+
+  document.getElementById('btn-load-more').style.display = products.length > catalogLimit ? 'block' : 'none';
+}
+
+document.getElementById('search-input').addEventListener('input', function() {
+  catalogLimit = 48;
+  renderCatalog();
+});
+
+document.getElementById('btn-load-more').addEventListener('click', function() {
+  catalogLimit += 48;
+  renderCatalog();
+});
+
+loadProducts();
+</script>
+
+</body>
+</html>

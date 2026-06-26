@@ -1,0 +1,454 @@
+[
+  {
+    "id": "Zone_R1C1",
+    "category": "laptops",
+    "shelfs": [
+      "Shelf_0_0",
+      "Shelf_0_1",
+      "Shelf_1_0",
+      "Shelf_1_1"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C2",
+        "weight": 10.0
+      }
+    ],
+    "color": "#FF6B6B",
+    "label": "laptops"
+  },
+  {
+    "id": "Zone_R1C2",
+    "category": "smartphones",
+    "shelfs": [
+      "Shelf_0_2",
+      "Shelf_0_3",
+      "Shelf_1_2",
+      "Shelf_1_3"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#4ECDC4",
+    "label": "smartphones"
+  },
+  {
+    "id": "Zone_R1C3",
+    "category": "headphones",
+    "shelfs": [
+      "Shelf_0_4",
+      "Shelf_0_5",
+      "Shelf_0_6",
+      "Shelf_1_4",
+      "Shelf_1_5",
+      "Shelf_1_6"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C4",
+        "weight": 10.0
+      }
+    ],
+    "color": "#45B7D1",
+    "label": "headphones"
+  },
+  {
+    "id": "Zone_R1C4",
+    "category": "books",
+    "shelfs": [
+      "Shelf_0_7",
+      "Shelf_0_8",
+      "Shelf_0_9",
+      "Shelf_1_7",
+      "Shelf_1_8",
+      "Shelf_1_9"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R1C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#96CEB4",
+    "label": "books"
+  },
+  {
+    "id": "Zone_R2C1",
+    "category": "kitchen appliances",
+    "shelfs": [
+      "Shelf_2_0",
+      "Shelf_2_1",
+      "Shelf_3_0",
+      "Shelf_3_1"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R1C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C2",
+        "weight": 10.0
+      }
+    ],
+    "color": "#FFEAA7",
+    "label": "kitchen\nappliances"
+  },
+  {
+    "id": "Zone_R2C2",
+    "category": "smart watches",
+    "shelfs": [
+      "Shelf_2_2",
+      "Shelf_2_3",
+      "Shelf_3_2",
+      "Shelf_3_3"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R1C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#DDA0DD",
+    "label": "smart\nwatches"
+  },
+  {
+    "id": "Zone_R2C3",
+    "category": "gaming mice",
+    "shelfs": [
+      "Shelf_2_4",
+      "Shelf_2_5",
+      "Shelf_2_6",
+      "Shelf_3_4",
+      "Shelf_3_5",
+      "Shelf_3_6"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R1C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C4",
+        "weight": 10.0
+      }
+    ],
+    "color": "#98D8C8",
+    "label": "gaming\nmice"
+  },
+  {
+    "id": "Zone_R2C4",
+    "category": "keyboards",
+    "shelfs": [
+      "Shelf_2_7",
+      "Shelf_2_8",
+      "Shelf_2_9",
+      "Shelf_3_7",
+      "Shelf_3_8",
+      "Shelf_3_9"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R1C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R2C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#F7DC6F",
+    "label": "keyboards"
+  },
+  {
+    "id": "Zone_R3C1",
+    "category": "monitors",
+    "shelfs": [
+      "Shelf_4_0",
+      "Shelf_4_1",
+      "Shelf_5_0",
+      "Shelf_5_1",
+      "Shelf_6_0",
+      "Shelf_6_1"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C2",
+        "weight": 10.0
+      }
+    ],
+    "color": "#BB8FCE",
+    "label": "monitors"
+  },
+  {
+    "id": "Zone_R3C2",
+    "category": "tablets",
+    "shelfs": [
+      "Shelf_4_2",
+      "Shelf_4_3",
+      "Shelf_5_2",
+      "Shelf_5_3",
+      "Shelf_6_2",
+      "Shelf_6_3"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#85C1E9",
+    "label": "tablets"
+  },
+  {
+    "id": "Zone_R3C3",
+    "category": "wireless earbuds",
+    "shelfs": [
+      "Shelf_4_4",
+      "Shelf_4_5",
+      "Shelf_4_6",
+      "Shelf_5_4",
+      "Shelf_5_5",
+      "Shelf_5_6",
+      "Shelf_6_4",
+      "Shelf_6_5",
+      "Shelf_6_6"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C4",
+        "weight": 10.0
+      }
+    ],
+    "color": "#F0B27A",
+    "label": "wireless\nearbuds"
+  },
+  {
+    "id": "Zone_R3C4",
+    "category": "coffee machines",
+    "shelfs": [
+      "Shelf_4_7",
+      "Shelf_4_8",
+      "Shelf_4_9",
+      "Shelf_5_7",
+      "Shelf_5_8",
+      "Shelf_5_9",
+      "Shelf_6_7",
+      "Shelf_6_8",
+      "Shelf_6_9"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R2C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R3C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#82E0AA",
+    "label": "coffee\nmachines"
+  },
+  {
+    "id": "Zone_R4C1",
+    "category": "laptops",
+    "shelfs": [
+      "Shelf_7_0",
+      "Shelf_7_1",
+      "Shelf_8_0",
+      "Shelf_8_1",
+      "Shelf_9_0",
+      "Shelf_9_1"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R3C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C2",
+        "weight": 10.0
+      }
+    ],
+    "color": "#FF6B6B",
+    "label": "laptops"
+  },
+  {
+    "id": "Zone_R4C2",
+    "category": "smartphones",
+    "shelfs": [
+      "Shelf_7_2",
+      "Shelf_7_3",
+      "Shelf_8_2",
+      "Shelf_8_3",
+      "Shelf_9_2",
+      "Shelf_9_3"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R3C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C1",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#4ECDC4",
+    "label": "smartphones"
+  },
+  {
+    "id": "Zone_R4C3",
+    "category": "headphones",
+    "shelfs": [
+      "Shelf_7_4",
+      "Shelf_7_5",
+      "Shelf_7_6",
+      "Shelf_8_4",
+      "Shelf_8_5",
+      "Shelf_8_6",
+      "Shelf_9_4",
+      "Shelf_9_5",
+      "Shelf_9_6"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R3C3",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C2",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C4",
+        "weight": 10.0
+      }
+    ],
+    "color": "#45B7D1",
+    "label": "headphones"
+  },
+  {
+    "id": "Zone_R4C4",
+    "category": "books",
+    "shelfs": [
+      "Shelf_7_7",
+      "Shelf_7_8",
+      "Shelf_7_9",
+      "Shelf_8_7",
+      "Shelf_8_8",
+      "Shelf_8_9",
+      "Shelf_9_7",
+      "Shelf_9_8",
+      "Shelf_9_9"
+    ],
+    "connections": [
+      {
+        "to": "Zone_R3C4",
+        "weight": 10.0
+      },
+      {
+        "to": "Zone_R4C3",
+        "weight": 10.0
+      }
+    ],
+    "color": "#96CEB4",
+    "label": "books"
+  }
+]
